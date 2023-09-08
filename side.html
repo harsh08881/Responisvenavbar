@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload Example</title>
+</head>
+<body>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload</button>
+    
+    <script>
+        function uploadFile() {
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0]; // Get the selected file
+
+            if (file) {
+                var formData = new FormData();
+                formData.append('uploadedFile', file); // 'uploadedFile' is the name of the field on the server
+
+                // You can use XMLHttpRequest or fetch to send the file to the server
+                // Example using fetch:
+                fetch('your_upload_endpoint_url', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('File uploaded successfully.');
+                    } else {
+                        console.error('File upload failed.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                console.error('No file selected.');
+            }
+        }
+    </script>
+</body>
+</html>
